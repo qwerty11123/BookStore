@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/flatly/bootstrap.min.css" integrity="sha384-qF/QmIAj5ZaYFAeQcrQ6bfVMAh4zZlrGwTPY7T/M+iTTLJqJBJjwwnsE5Y0mV7QK" crossorigin="anonymous">
+</head>
+<body>
+<div class="container-fluid">
+<div class="jumbotron">
+    <center>
+        <h1 class="display-4">Personal Library</h1>
+  <p class="lead">
+      This is a simple Crud Application, which can get,create,update and delete book
+      <br><br>
+      <a href="{% url 'home' %}"> <button class="btn btn-primary">Home</button></a>
+       </p>
+
+        <hr class="my-4">
+  <div class="row">
+
+      <div class="col-md-12">
+          <h3>Update {{ data.title }}</h3>
+          <form onsubmit="return Add_Update_Book(event,'update_book','PUT',{{ data.id }})">
+              <div class="form-group">
+                  <label><b>Select Genre</b></label>
+                  <div id="category">
+
+                  </div>
+              </div>
+               <div class="form-group">
+                   <label><b>Book Title</b></label>
+                  <input type="text" placeholder="Book Title" value="{{ data.title }}" id="title" class="form-control"
+                  style="max-width:500px" required>
+              </div>
+              <div class="form-group">
+                  <label><b>Select Book Type</b></label>
+                 <select class="form-control" id="book_type" style="max-width:500px" required>
+                     {% if data.book_type == 'Physical' %}
+                     <option value="Physical" selected>Physical</option>
+                      <option value="Ebook">Ebook</option>
+                     {% else %}
+                     <option value="Physical" >Physical</option>
+                     <option value="Ebook" selected>Ebook</option>
+                     {% endif %}
+                 </select>
+              </div>
+
+              <div class="form-group">
+                  <label><b>Book Description</b></label>
+                <textarea class="form-control" required style="max-width:500px;height: 100px"
+                          id="des" placeholder="Book Description">
+                    {{ data.description }}
+                </textarea>
+              </div>
+              <div class="form-group">
+                  {% if data.favbook %}
+                  <input type="checkbox"  checked id="fav"> <b>Favorite Book ?</b>
+                  {% else %}
+                  <input type="checkbox"   id="fav"> <b>Favorite Book ?</b>
+                  {% endif %}
+              </div>
+              <input type="submit" value="Update Book" class="btn btn-primary">
+          </form>
+
+      </div>
+
+  </div>
+
+    </center>
+
+</div>
+
+</div>
+<script>
+    var Idd = {{ data.category }};
+    var catDiv = document.getElementById('category')
+    fetch('http://127.0.0.01:8000/category/')
+    .then(res=>res.json())
+    .then(jRes=>{
+        var selectInput = document.createElement('select');
+        selectInput.id = 'catId'
+        for(var cat=0;cat<jRes.length;cat++){
+            var option = document.createElement('option')
+            option.value = jRes[cat].id;
+            option.innerText = jRes[cat].name;
+            if(jRes[cat].id === Idd){
+                option.selected = true
+            }
+            selectInput.append(option)
+        }
+        catDiv.append(selectInput)
+
+    })
+
+</script>
+<script src="{% static 'js/add_update_book.js' %}"></script>
+</body>
+
+</html>

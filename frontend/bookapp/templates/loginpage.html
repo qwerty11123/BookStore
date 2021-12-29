@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/flatly/bootstrap.min.css" integrity="sha384-qF/QmIAj5ZaYFAeQcrQ6bfVMAh4zZlrGwTPY7T/M+iTTLJqJBJjwwnsE5Y0mV7QK" crossorigin="anonymous">
+</head>
+<body onload="FormContain('Login');">
+<div class="container-fluid">
+<div class="jumbotron">
+    <center>
+        <h1 class="display-4">Personal Library</h1>
+  <p class="lead">
+      This is a simple Crud Application, which can get,create,update and delete book
+      <br><br>
+      <button class="btn btn-primary" onclick="FormContain('Login')">Login</button>
+       <button class="btn btn-primary" onclick="FormContain('Signup')">Sign Up</button>
+  </p>
+
+        <hr class="my-4">
+  <div class="row">
+
+      <div class="col-md-12" id="form-contain">
+
+      </div>
+
+  </div>
+
+    </center>
+
+</div>
+
+</div>
+
+<script src="{% static 'js/forms.js' %}"></script>
+</body>
+
+</html>
